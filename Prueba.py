@@ -5,6 +5,7 @@ pantalla.minsize(800, 500)
 pantalla.title("PONG")
 pantalla.mainloop()
 
+
 class Juego:
     def __init__(self):
         self.matriz = [ [False, False, False, False, False, False, False, False, False, False,
@@ -107,3 +108,4 @@ class Juego:
                         False, False, False, False, False, False, False, False, False, False,
                         False, False, False, False, False, False, False, False, False, False,
                         False, False, False, False, False, False, False, False, False, False] ]
+
