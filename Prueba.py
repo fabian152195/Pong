@@ -8,11 +8,13 @@ pantalla.configure(bg="black")
 
 
 class Juego:
-    puntaje = []
+
     modo = ''
     paletas = 1
+    puntaje = []
     nivel = 1
-    def __init__(self, modo, paletas):
+
+    def __init__(self, modo, paletas, puntaje, nivel):
         self.matriz = [ [False, False, False, False, False, False, False, False, False, False,
                         False, False, False, False, False, False, False, False, False, False,
                         False, False, False, False, False, False, False, False, False, False,
@@ -118,10 +120,10 @@ class Juego:
         self.paletas = paletas
         self.nivel = nivel
     def set_nivel(self):
-        self.nivel = 1#entrada del programa
+        self.nivel = 1 #entrada del programa  ## para mofi
         return self.nivel
 
     def cambiar_nivel(self):
-        if puntaje[0] == 7 or puntaje[1] == 7:
-            set_nivel()
-pantalla.mainloop()
+        if ((self.puntaje[0] == 7 or self.puntaje[1] == 7) and self.nivel<=3):
+            self.nivel += 1
+
