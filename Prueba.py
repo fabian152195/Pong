@@ -226,7 +226,12 @@ while True:
     pantalla.update()
     time.sleep(0.01)
 
+<<<<<<< HEAD
 
 pantalla.mainloop()
 
 '''
+=======
+#prueba
+pantalla.mainloop()
+>>>>>>> 4fb2246111f2b597533491dbcf8668e1cc4841c8
