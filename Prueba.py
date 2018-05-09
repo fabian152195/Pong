@@ -209,5 +209,5 @@ while True:
     pantalla.update()
     time.sleep(0.01)
 
-
+#prueba
 pantalla.mainloop()
