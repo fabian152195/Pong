@@ -11,9 +11,7 @@ pantalla.title("PONG")
 
 c = Canvas(pantalla, width=WIDTH, height = HEIGHT, bg = "black")
 c.pack()
-#Player1_b=Button(pantalla, text = "abajo", command = lambda: Jugador.abajo(pad1))
 
-#PLayer1_b2=Button(pantalla, text = "arriba", command = lambda: Jugador.arriba(pad1))
 
 p1 = [0, 20]
 p2 = [780, 800]
@@ -226,8 +224,7 @@ pantalla.bind("s" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
 pantalla.bind("S" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
 pantalla.bind("w" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
 pantalla.bind("W" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
-#pantalla.bind("<Up>" , lambda event: Jugador.arriba(pad2))
-#pantalla.bind("<Down>" , lambda event: Jugador.abajo(pad2))
+
 bola = Bolita()
 
 
