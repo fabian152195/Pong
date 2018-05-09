@@ -11,9 +11,9 @@ pantalla.title("PONG")
 
 c = Canvas(pantalla, width=WIDTH, height = HEIGHT, bg = "black")
 c.pack()
-Player1_b=Button(pantalla, text = "abajo", command = lambda: Jugador.abajo(pad1))
+#Player1_b=Button(pantalla, text = "abajo", command = lambda: Jugador.abajo(pad1))
 
-PLayer1_b2=Button(pantalla, text = "arriba", command = lambda: Jugador.arriba(pad1))
+#PLayer1_b2=Button(pantalla, text = "arriba", command = lambda: Jugador.arriba(pad1))
 
 p1 = [0, 20]
 p2 = [780, 800]
@@ -32,19 +32,34 @@ class Jugador:
     #velocidad = 1  INNECESARIO
     #color_paleta = "black"  EN LA CLASE PALETA
 
-    def __init__(self, size,player):
-        self.shape = c.create_rectangle(player[0], size[0]  ,player[1] , size[1], fill="white")
 
-
-        """self.color_paleta = ""
-        self.velocidad = velocidad
-        self.posiciony =
-        self.posicionx ="""
-
+    '''
     def arriba(self):
         c.move(self.shape, 0, -20)
     def abajo(self):
         c.move(self.shape, 0, 20)
+        '''
+
+
+class paleta:
+    color_paleta = 'white'
+    posicion = []
+    width = [0,0]
+    height = [0,0]
+    shape = None
+
+    def __init__(self, height, width):
+        self.shape = c.create_rectangle(width[0], height[0], width[1], height[1], fill='white')
+        self.posicion = c.coords(self.shape)
+
+    def set_tamano(self,height):
+        self.shape = c.create_rectangle(0, height[0], 20, height[1], fill='white')
+
+    def set_color(self,color):
+        self.shape = c.create_rectangle(self.width[0], self.height[0], self.width[1], self.height[1], fill=str(color))
+
+    def get_posicion(self):
+        return self.posicion
 
 class Bolita:
 
@@ -196,14 +211,16 @@ class Juego:
 
 
 
-pad1 = Jugador(mediano, p1)
-pad2 = Jugador(mediano,p2)
 
+'''
 pantalla.bind("s" , lambda event: Jugador.abajo(pad1))
 pantalla.bind("w" , lambda event: Jugador.arriba(pad1))
 pantalla.bind("<Up>" , lambda event: Jugador.arriba(pad2))
 pantalla.bind("<Down>" , lambda event: Jugador.abajo(pad2))
 bola = Bolita()
+
+
+
 while True:
     bola.move()
     pantalla.update()
@@ -211,3 +228,5 @@ while True:
 
 
 pantalla.mainloop()
+
+'''
