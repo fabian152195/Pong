@@ -1,7 +1,7 @@
 import tkinter.messagebox
 from tkinter import *
 import time
-
+import random
 
 HEIGHT=500
 WIDTH = 800
@@ -18,6 +18,7 @@ PLayer1_b2=Button(pantalla, text = "arriba", command = lambda: Jugador.arriba(pa
 p1 = [0, 20]
 p2 = [780, 800]
 grande = [160, 340]
+mediano = [190, 310]
 class Jugador:
     velocidad = 1
     color_paleta = "black"
@@ -35,6 +36,23 @@ class Jugador:
     def abajo(self):
         c.move(self.shape, 0, 20)
 
+class Bolita:
+
+    def __init__(self):
+
+        self.shape = c.create_oval(385, 235, 415, 265, fill = "red")
+        self.xspeed = 5
+        self.yspeed = 5
+        pos = c.coords(self)
+    def get_pos(self):
+        return c.coords(self.shape)
+    def move(self):
+        c.move(self.shape, self.xspeed, self.yspeed)
+
+        if self.get_pos()[3] >= HEIGHT or self.get_pos()[1] <= 0:
+            self.yspeed = -self.yspeed
+        if self.get_pos()[2] >= WIDTH or self.get_pos()[0] <= 0:
+            self.xspeed = -self.xspeed
 
 
 
@@ -159,10 +177,21 @@ class Juego:
         if ((self.puntaje[0] == 7 or self.puntaje[1] == 7) and self.nivel<=3):
             self.nivel += 1
 
-pad1 = Jugador(grande, p1)
-pad2 = Jugador(grande,p2)
+
+
+
+pad1 = Jugador(mediano, p1)
+pad2 = Jugador(mediano,p2)
+
 pantalla.bind("s" , lambda event: Jugador.abajo(pad1))
 pantalla.bind("w" , lambda event: Jugador.arriba(pad1))
 pantalla.bind("<Up>" , lambda event: Jugador.arriba(pad2))
 pantalla.bind("<Down>" , lambda event: Jugador.abajo(pad2))
+bola = Bolita()
+while True:
+    bola.move()
+    pantalla.update()
+    time.sleep(0.01)
+
+
 pantalla.mainloop()
