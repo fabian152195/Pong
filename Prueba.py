@@ -19,6 +19,7 @@ p1 = [0, 20]
 p2 = [780, 800]
 grande = [160, 340]
 mediano = [190, 310]
+pequeno = [220,280]
 
 
 
@@ -52,14 +53,7 @@ class Jugador(paleta):
     paleta1= None
     paleta2= None
     shape = None
-    #velocidad = 1  INNECESARIO
-    #color_paleta = "black"  EN LA CLASE PALETA
-    '''
-    def arriba(self):
-        c.move(self.shape, 0, -20)
-    def abajo(self):
-        c.move(self.shape, 0, 20)
-        '''
+
     def set_puntaje(self,puntaje):
         self.puntaje=puntaje
 
@@ -223,12 +217,15 @@ class Juego:
             self.nivel += 1
 
 
-pad1= paleta(mediano,p1)
-pad2 = paleta(mediano,p2)
+
+pad1= paleta(pequeno,p1)
+pad2 = paleta(pequeno,p2)
 
 
 pantalla.bind("s" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
+pantalla.bind("S" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
 pantalla.bind("w" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
+pantalla.bind("W" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
 #pantalla.bind("<Up>" , lambda event: Jugador.arriba(pad2))
 #pantalla.bind("<Down>" , lambda event: Jugador.abajo(pad2))
 bola = Bolita()
