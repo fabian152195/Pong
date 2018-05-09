@@ -60,6 +60,20 @@ class Jugador(paleta):
     def abajo(self):
         c.move(self.shape, 0, 20)
         '''
+    def set_puntaje(self,puntaje):
+        self.puntaje=puntaje
+
+    def get_puntaje(self):
+        return self.puntaje
+
+    def mover_paletasUp(self,paleta1:paleta,paleta2:paleta=None):
+        if paleta2==None:
+            c.move(paleta1.shape, 0, -20)
+
+    def mover_paletasDown(self,paleta1:paleta,paleta2:paleta=None):
+        if paleta2==None:
+            c.move(paleta1.shape, 0, 20)
+
 
 class Bolita:
 
@@ -209,14 +223,14 @@ class Juego:
             self.nivel += 1
 
 
+pad1= paleta(mediano,p1)
+pad2 = paleta(mediano,p2)
 
 
-
-'''
-pantalla.bind("s" , lambda event: Jugador.abajo(pad1))
-pantalla.bind("w" , lambda event: Jugador.arriba(pad1))
-pantalla.bind("<Up>" , lambda event: Jugador.arriba(pad2))
-pantalla.bind("<Down>" , lambda event: Jugador.abajo(pad2))
+pantalla.bind("s" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
+pantalla.bind("w" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
+#pantalla.bind("<Up>" , lambda event: Jugador.arriba(pad2))
+#pantalla.bind("<Down>" , lambda event: Jugador.abajo(pad2))
 bola = Bolita()
 
 
@@ -229,6 +243,3 @@ while True:
 
 pantalla.mainloop()
 
-'''
-
-#MAIN
