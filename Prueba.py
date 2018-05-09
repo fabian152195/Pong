@@ -23,22 +23,7 @@ mediano = [190, 310]
 
 
 
-class Jugador:
 
-    contador = 0 #puntaje por jugador
-    paleta1= None
-    paleta2= None
-    shape = None
-    #velocidad = 1  INNECESARIO
-    #color_paleta = "black"  EN LA CLASE PALETA
-
-
-    '''
-    def arriba(self):
-        c.move(self.shape, 0, -20)
-    def abajo(self):
-        c.move(self.shape, 0, 20)
-        '''
 
 
 class paleta:
@@ -60,6 +45,21 @@ class paleta:
 
     def get_posicion(self):
         return self.posicion
+
+class Jugador(paleta):
+
+    puntaje = 0 #puntaje por jugador
+    paleta1= None
+    paleta2= None
+    shape = None
+    #velocidad = 1  INNECESARIO
+    #color_paleta = "black"  EN LA CLASE PALETA
+    '''
+    def arriba(self):
+        c.move(self.shape, 0, -20)
+    def abajo(self):
+        c.move(self.shape, 0, 20)
+        '''
 
 class Bolita:
 
