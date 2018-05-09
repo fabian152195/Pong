@@ -19,9 +19,18 @@ p1 = [0, 20]
 p2 = [780, 800]
 grande = [160, 340]
 mediano = [190, 310]
+
+
+
+
 class Jugador:
-    velocidad = 1
-    color_paleta = "black"
+
+    contador = 0 #puntaje por jugador
+    paleta1= None
+    paleta2= None
+    shape = None
+    #velocidad = 1  INNECESARIO
+    #color_paleta = "black"  EN LA CLASE PALETA
 
     def __init__(self, size,player):
         self.shape = c.create_rectangle(player[0], size[0]  ,player[1] , size[1], fill="white")
@@ -31,6 +40,7 @@ class Jugador:
         self.velocidad = velocidad
         self.posiciony =
         self.posicionx ="""
+
     def arriba(self):
         c.move(self.shape, 0, -20)
     def abajo(self):
@@ -59,10 +69,15 @@ class Bolita:
 
 class Juego:
 
+
+    #paletas = 1
     modo = ''
-    paletas = 1
-    puntaje = []
+    puntaje = (0,0)
     nivel = 1
+    jugador_izq = None
+    jugador_der = None
+    Bola = None
+    matriz = [[],[]]
 
     def __init__(self, modo, paletas, puntaje, nivel):
         self.matriz = [ [False, False, False, False, False, False, False, False, False, False,
@@ -169,8 +184,9 @@ class Juego:
         self.modo = modo
         self.paletas = paletas
         self.nivel = nivel
+
     def set_nivel(self):
-        self.nivel = 1 #entrada del programa  ## para mofi
+        self.nivel = 1 #entrada del programa  ## para modificar
         return self.nivel
 
     def cambiar_nivel(self):
