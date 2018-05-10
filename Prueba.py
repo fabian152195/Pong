@@ -62,6 +62,7 @@ class Jugador(paleta):
         if paleta2==None:
             c.move(paleta1.shape, 0, -20)
 
+
     def mover_paletasDown(self,paleta1:paleta,paleta2:paleta=None):
         if paleta2==None:
             c.move(paleta1.shape, 0, 20)
@@ -222,17 +223,20 @@ class Juego:
 def prnt_m(matriz):
     for elemento in matriz:
         print(elemento)
+def mv_dn(Juego, clase, objeto):
+    clase.mover_paletasDown(clase, objeto)
+    Juego.modificar_matriz(Juego, objeto.get_posicion())
+    prnt_m(Juego.matriz)
 
-pad1= paleta(pequeno,p1)
-pad2 = paleta(pequeno,p2)
 
-Juego.modificar_matriz(Juego, pad1.get_posicion())
 prnt_m(Juego.matriz)
 
-pantalla.bind("s" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
-pantalla.bind("S" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
+pantalla.bind("s" , lambda event: mv_dn(Juego, Jugador, pad1))
+pantalla.bind("S" , lambda event: Jugador.mover_paletasDown( Jugador,pad1))
 pantalla.bind("w" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
 pantalla.bind("W" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
+pad1= paleta(pequeno,p1)
+pad2 = paleta(pequeno,p2)
 
 bola = Bolita()
 
