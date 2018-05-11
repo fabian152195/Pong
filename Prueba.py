@@ -20,7 +20,7 @@ mediano = [190, 310]
 pequeno = [220,280]
 
 
-matriz2 = [[0]*40]*25]
+
 
 
 
@@ -99,106 +99,7 @@ class Juego:
     jugador_izq = None
     jugador_der = None
     Bola = None
-    matriz = [ [False, False, False, False, False, False, False, False, False, False,
-                False, False, False, False, False, False, False, False, False, False,
-                False, False, False, False, False, False, False, False, False, False,
-                False, False, False, False, False, False, False, False, False, False],
-                [False, False, False, False, False, False, False, False, False, False,
-                False, False, False, False, False, False, False, False, False, False,
-                False, False, False, False, False, False, False, False, False, False,
-                False, False, False, False, False, False, False, False, False, False],
-                [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False]]
+    matriz = [[[0] * 40] * 25]
 
     def __init__(self, modo, paletas, puntaje, nivel, matriz):
         self.matriz = matriz
@@ -218,7 +119,7 @@ class Juego:
     def modificar_matriz(self, pos):
         for i in range(int(pos[1]//20),int(pos[3]//20)):
             for j in range(int(pos[0]//20), int(pos[2]//20)):
-                self.matriz[i][j] = True
+                self.matriz[i][j] = 1
 
 def prnt_m(matriz):
     for elemento in matriz:
