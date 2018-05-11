@@ -20,10 +20,19 @@ p2 = [780, 800]
 grande = [160, 340]
 mediano = [190, 310]
 
-
-
-
-
+# Clase paleta:
+# Atributos:
+#  color_paleta: string
+#  posicion: list
+#  width: int
+#  height: int
+#  shape: int
+#######################
+# Metodos:
+#  __init__()
+#  set_tamano()
+#  set_color()
+#  get_posicion()
 
 
 class paleta:
@@ -83,8 +92,10 @@ class Bolita:
         self.xspeed = 5
         self.yspeed = 5
         pos = c.coords(self)
+
     def get_pos(self):
         return c.coords(self.shape)
+
     def move(self):
         c.move(self.shape, self.xspeed, self.yspeed)
 
