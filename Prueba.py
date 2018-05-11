@@ -62,7 +62,6 @@ class Jugador(paleta):
         if paleta2==None:
             c.move(paleta1.shape, 0, -20)
 
-
     def mover_paletasDown(self,paleta1:paleta,paleta2:paleta=None):
         if paleta2==None:
             c.move(paleta1.shape, 0, 20)
