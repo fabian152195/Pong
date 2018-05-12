@@ -112,8 +112,8 @@ class Juego:
 
     def modificar_matriz(self, pos):
         for i in range(int(pos[1])//20, int(pos[3])//20):
-            for j in range(int(pos[0]//20, int(pos[2]//20)):
-                self.matriz[i][j]= 1
+            for j in range(int(pos[0])//20, int(pos[2])//20):
+                self.matriz[i][j] = 1
 
 def prnt_m(matriz):
     for elemento in matriz:
