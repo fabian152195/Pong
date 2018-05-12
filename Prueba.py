@@ -11,14 +11,13 @@ pantalla.title("PONG")
 
 c = Canvas(pantalla, width=WIDTH, height = HEIGHT, bg = "black")
 c.pack()
-#Player1_b=Button(pantalla, text = "abajo", command = lambda: Jugador.abajo(pad1))
 
-#PLayer1_b2=Button(pantalla, text = "arriba", command = lambda: Jugador.arriba(pad1))
 
 p1 = [0, 20]
 p2 = [780, 800]
 grande = [160, 340]
 mediano = [190, 310]
+pequeno = [220,280]
 
 # Clase paleta:
 # Atributos:
@@ -61,14 +60,7 @@ class Jugador(paleta):
     paleta1= None
     paleta2= None
     shape = None
-    #velocidad = 1  INNECESARIO
-    #color_paleta = "black"  EN LA CLASE PALETA
-    '''
-    def arriba(self):
-        c.move(self.shape, 0, -20)
-    def abajo(self):
-        c.move(self.shape, 0, 20)
-        '''
+
     def set_puntaje(self,puntaje):
         self.puntaje=puntaje
 
@@ -108,8 +100,6 @@ class Bolita:
 
 
 class Juego:
-
-
     #paletas = 1
     modo = ''
     puntaje = (0,0)
@@ -117,109 +107,10 @@ class Juego:
     jugador_izq = None
     jugador_der = None
     Bola = None
-    matriz = [[],[]]
+    matriz = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-    def __init__(self, modo, paletas, puntaje, nivel):
-        self.matriz = [ [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False],
-                       [False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False, False, False] ]
+    def __init__(self, modo, paletas, puntaje, nivel, matriz):
+        self.matriz = matriz
         self.Puntaje = puntaje
         self.modo = modo
         self.paletas = paletas
@@ -233,19 +124,30 @@ class Juego:
         if ((self.puntaje[0] == 7 or self.puntaje[1] == 7) and self.nivel<=3):
             self.nivel += 1
 
+    def modificar_matriz(self, pos):
+        for i in range(int(pos[1])//20, int(pos[3])//20):
+            self.matriz[i][0] = 1
 
-pad1= paleta(mediano,p1)
-pad2 = paleta(mediano,p2)
+def prnt_m(matriz):
+    for elemento in matriz:
+        print(elemento)
+def mv_dn(Juego, clase, objeto):
+    clase.mover_paletasDown(clase, objeto)
+    print(objeto.get_posicion())
+    Juego.modificar_matriz(Juego, objeto.get_posicion())
+    prnt_m(Juego.matriz)
 
 
-pantalla.bind("s" , lambda event: Jugador.mover_paletasDown(Jugador,pad1))
+pantalla.bind("s" , lambda event: mv_dn(Juego, Jugador, pad1))
+pantalla.bind("S" , lambda event: Jugador.mover_paletasDown( Jugador,pad1))
 pantalla.bind("w" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
-#pantalla.bind("<Up>" , lambda event: Jugador.arriba(pad2))
-#pantalla.bind("<Down>" , lambda event: Jugador.abajo(pad2))
+pantalla.bind("W" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
+pad1= paleta(pequeno,p1)
+pad2 = paleta(pequeno,p2)
+
 bola = Bolita()
-
-
-
+Juego.modificar_matriz(Juego, pad1.get_posicion())
+prnt_m(Juego.matriz)
 while True:
     bola.move()
     pantalla.update()
