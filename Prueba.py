@@ -1,4 +1,3 @@
-import tkinter.messagebox
 from tkinter import *
 import time
 import random
@@ -9,7 +8,7 @@ pantalla = Tk()
 pantalla.minsize(WIDTH, HEIGHT)
 pantalla.title("PONG")
 
-c = Canvas(pantalla, width=WIDTH, height = HEIGHT, bg = "black")
+c = Canvas(pantalla, width=WIDTH, height=HEIGHT, bg="black")
 c.pack()
 
 
