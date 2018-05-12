@@ -38,6 +38,12 @@ class paleta:
 
     def get_posicion(self):
         return self.posicion
+    def set_posicion(self, x1,y1,x2,y2):
+        self.posicion[0]+=x1
+        self.posicion[1]+=y1
+        self.posicion[2]+=x2
+        self.posicion[3]+=y2
+        return self.posicion
 
 class Jugador(paleta):
 
@@ -56,13 +62,13 @@ class Jugador(paleta):
         if paleta2==None:
             if paleta1.get_posicion()[1]>0:
                 c.move(paleta1.shape, 0, -20)
-                paleta1.get_posicion()
+                paleta1.set_posicion(0, -20, 0, 0)
 
     def mover_paletasDown(self,paleta1:paleta,paleta2:paleta=None):
         if paleta2==None:
             if paleta1.posicion[3]<HEIGHT:
                 c.move(paleta1.shape, 0, 20)
-                paleta1.get_posicion()
+                paleta1.set_posicion(0,20,0,0)
 
 
 class Bolita:
@@ -140,6 +146,7 @@ pantalla.bind("<Up>", lambda event: mv_up(Juego, Jugador, pad2))
 
 pad1= paleta(pequeno,p1)
 pad2 = paleta(pequeno,p2)
+
 
 bola = Bolita()
 Juego.modificar_matriz(Juego, pad1.get_posicion())
