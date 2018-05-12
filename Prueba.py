@@ -54,13 +54,15 @@ class Jugador(paleta):
 
     def mover_paletasUp(self,paleta1:paleta,paleta2:paleta=None):
         if paleta2==None:
-            c.move(paleta1.shape, 0, -20)
-            paleta1.get_posicion()
+            if paleta1.get_posicion()[1]>0:
+                c.move(paleta1.shape, 0, -20)
+                paleta1.get_posicion()
 
     def mover_paletasDown(self,paleta1:paleta,paleta2:paleta=None):
         if paleta2==None:
-            c.move(paleta1.shape, 0, 20)
-            paleta1.get_posicion()
+            if paleta1.posicion[3]<HEIGHT:
+                c.move(paleta1.shape, 0, 20)
+                paleta1.get_posicion()
 
 
 class Bolita:
@@ -68,8 +70,8 @@ class Bolita:
     def __init__(self):
 
         self.shape = c.create_oval(385, 235, 415, 265, fill = "red")
-        self.xspeed = 5
-        self.yspeed = 5
+        self.xspeed = -20
+        self.yspeed = 20
         pos = c.coords(self)
     def get_pos(self):
         return c.coords(self.shape)
@@ -142,10 +144,11 @@ pad2 = paleta(pequeno,p2)
 bola = Bolita()
 Juego.modificar_matriz(Juego, pad1.get_posicion())
 prnt_m(Juego.matriz)
+
 while True:
     bola.move()
     pantalla.update()
-    time.sleep(0.01)
+    time.sleep(0.05)
 
 
 
