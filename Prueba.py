@@ -17,12 +17,7 @@ p1 = [0, 20]
 p2 = [780, 800]
 grande = [160, 340]
 mediano = [190, 310]
-pequeno = [220,280]
-
-
-
-
-
+pequeno = [220, 280]
 
 
 class paleta:
@@ -61,10 +56,12 @@ class Jugador(paleta):
     def mover_paletasUp(self,paleta1:paleta,paleta2:paleta=None):
         if paleta2==None:
             c.move(paleta1.shape, 0, -20)
+            paleta1.get_posicion()
 
     def mover_paletasDown(self,paleta1:paleta,paleta2:paleta=None):
         if paleta2==None:
             c.move(paleta1.shape, 0, 20)
+            paleta1.get_posicion()
 
 
 class Bolita:
@@ -115,22 +112,31 @@ class Juego:
 
     def modificar_matriz(self, pos):
         for i in range(int(pos[1])//20, int(pos[3])//20):
-            self.matriz[i][0] = 1
+            for j in range(int(pos[0])//20, int(pos[2])//20):
+                self.matriz[i][j] = 1
 
 def prnt_m(matriz):
     for elemento in matriz:
         print(elemento)
 def mv_dn(Juego, clase, objeto):
     clase.mover_paletasDown(clase, objeto)
-    print(objeto.get_posicion())
+    Juego.modificar_matriz(Juego, objeto.get_posicion())
+    prnt_m(Juego.matriz)
+def mv_up(Juego, clase, objeto):
+    clase.mover_paletasUp(clase, objeto)
     Juego.modificar_matriz(Juego, objeto.get_posicion())
     prnt_m(Juego.matriz)
 
+pantalla.bind("s", lambda event: mv_dn(Juego, Jugador, pad1))
+pantalla.bind("S", lambda event: mv_dn(Juego, Jugador, pad1))
+pantalla.bind("w", lambda event: mv_up(Juego, Jugador, pad1))
+pantalla.bind("W", lambda event: mv_up(Juego, Jugador, pad1))
 
-pantalla.bind("s" , lambda event: mv_dn(Juego, Jugador, pad1))
-pantalla.bind("S" , lambda event: Jugador.mover_paletasDown( Jugador,pad1))
-pantalla.bind("w" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
-pantalla.bind("W" , lambda event: Jugador.mover_paletasUp(Jugador,pad1))
+pantalla.bind("<Down>", lambda event: mv_dn(Juego, Jugador, pad2))
+pantalla.bind("<Up>", lambda event: mv_up(Juego, Jugador, pad2))
+
+
+
 pad1= paleta(pequeno,p1)
 pad2 = paleta(pequeno,p2)
 
