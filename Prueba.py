@@ -2,6 +2,8 @@ import tkinter.messagebox
 from tkinter import *
 import time
 import random
+from threading import Thread
+import threading
 
 HEIGHT=500
 WIDTH = 800
@@ -143,13 +145,23 @@ def mv_up(Juego, clase, objeto):
     Juego.modificar_matriz(Juego, objeto.get_posicion())
     prnt_m(Juego.matriz)
 
-pantalla.bind("s", lambda event: mv_dn(Juego, Jugador, pad1))
-pantalla.bind("S", lambda event: mv_dn(Juego, Jugador, pad1))
-pantalla.bind("w", lambda event: mv_up(Juego, Jugador, pad1))
-pantalla.bind("W", lambda event: mv_up(Juego, Jugador, pad1))
+def hiloDn(Juego, clase, objeto):
+    hilo1 = Thread(target=mv_dn, args=(Juego, clase, objeto))
+    hilo1.run()
 
-pantalla.bind("<Down>", lambda event: mv_dn(Juego, Jugador, pad2))
-pantalla.bind("<Up>", lambda event: mv_up(Juego, Jugador, pad2))
+
+def hiloUp(Juego, clase, objeto):
+    hilo2 = Thread(target=mv_up, args=(Juego, clase, objeto))
+    hilo2.run()
+
+
+pantalla.bind("s", lambda event: hiloDn(Juego, Jugador, pad1))
+pantalla.bind("S", lambda event: hiloDn(Juego, Jugador, pad1))
+pantalla.bind("e", lambda event: hiloUp(Juego, Jugador, pad1))
+pantalla.bind("E", lambda event: hiloUp(Juego, Jugador, pad1))
+
+pantalla.bind("<Down>", lambda event: hiloDn(Juego, Jugador, pad2))
+pantalla.bind("<Up>", lambda event: hiloUp(Juego, Jugador, pad2))
 
 
 
