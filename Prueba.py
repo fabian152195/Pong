@@ -1,6 +1,8 @@
 from tkinter import *
 import time
 import random
+from threading import Thread
+import threading
 
 HEIGHT=500
 WIDTH = 800
@@ -16,7 +18,21 @@ p1 = [0, 20]
 p2 = [780, 800]
 grande = [160, 340]
 mediano = [190, 310]
-pequeno = [220, 280]
+pequeno = [220,280]
+
+# Clase paleta:
+# Atributos:
+#  color_paleta: string
+#  posicion: list
+#  width: int
+#  height: int
+#  shape: int
+#######################
+# Metodos:
+#  __init__()
+#  set_tamano()
+#  set_color()
+#  get_posicion()
 
 
 class paleta:
@@ -37,6 +53,7 @@ class paleta:
         self.shape = c.create_rectangle(self.width[0], self.height[0], self.width[1], self.height[1], fill=str(color))
 
     def get_posicion(self):
+        return self.posicion
         return self.posicion
     def set_posicion(self, x1,y1,x2,y2):
         self.posicion[0]+=x1
@@ -79,8 +96,10 @@ class Bolita:
         self.xspeed = -20
         self.yspeed = 20
         pos = c.coords(self)
+
     def get_pos(self):
         return c.coords(self.shape)
+
     def move(self):
         c.move(self.shape, self.xspeed, self.yspeed)
 
@@ -134,15 +153,23 @@ def mv_up(Juego, clase, objeto):
     Juego.modificar_matriz(Juego, objeto.get_posicion())
     prnt_m(Juego.matriz)
 
-pantalla.bind("s", lambda event: mv_dn(Juego, Jugador, pad1))
-pantalla.bind("S", lambda event: mv_dn(Juego, Jugador, pad1))
-pantalla.bind("w", lambda event: mv_up(Juego, Jugador, pad1))
-pantalla.bind("W", lambda event: mv_up(Juego, Jugador, pad1))
+def hiloDn(Juego, clase, objeto):
+    hilo1 = Thread(target=mv_dn, args=(Juego, clase, objeto))
+    hilo1.run()
 
-pantalla.bind("<Down>", lambda event: mv_dn(Juego, Jugador, pad2))
-pantalla.bind("<Up>", lambda event: mv_up(Juego, Jugador, pad2))
+def hiloUp(Juego, clase, objeto):
+    hilo2 = Thread(target=mv_up, args=(Juego, clase, objeto))
+    hilo2.run()
 
+pantalla.bind("s", lambda event: hiloDn(Juego, Jugador, pad1))
+pantalla.bind("S", lambda event: hiloDn(Juego, Jugador, pad1))
+pantalla.bind("e", lambda event: hiloUp(Juego, Jugador, pad1))
+pantalla.bind("E", lambda event: hiloUp(Juego, Jugador, pad1))
 
+pantalla.bind("<Down>", lambda event: hiloDn(Juego, Jugador, pad2))
+pantalla.bind("<Up>", lambda event: hiloUp(Juego, Jugador, pad2))
+
+JuegoPrincipal = Juego()
 
 pad1= paleta(pequeno,p1)
 pad2 = paleta(pequeno,p2)
@@ -158,8 +185,5 @@ while True:
     time.sleep(0.05)
 
 
-
 pantalla.mainloop()
-
-
 
