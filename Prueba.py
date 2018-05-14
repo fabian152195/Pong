@@ -54,7 +54,7 @@ class paleta:
         self.shape = c.create_rectangle(self.width[0], self.height[0], self.width[1], self.height[1], fill=str(color))
 
     def get_posicion(self):
-        return self.posicion
+        return self.posicions
 
 class Jugador(paleta):
 
@@ -149,11 +149,9 @@ def hiloDn(Juego, clase, objeto):
     hilo1 = Thread(target=mv_dn, args=(Juego, clase, objeto))
     hilo1.run()
 
-
 def hiloUp(Juego, clase, objeto):
     hilo2 = Thread(target=mv_up, args=(Juego, clase, objeto))
     hilo2.run()
-
 
 pantalla.bind("s", lambda event: hiloDn(Juego, Jugador, pad1))
 pantalla.bind("S", lambda event: hiloDn(Juego, Jugador, pad1))
@@ -163,7 +161,7 @@ pantalla.bind("E", lambda event: hiloUp(Juego, Jugador, pad1))
 pantalla.bind("<Down>", lambda event: hiloDn(Juego, Jugador, pad2))
 pantalla.bind("<Up>", lambda event: hiloUp(Juego, Jugador, pad2))
 
-
+JuegoPrincipal = Juego()
 
 pad1= paleta(pequeno,p1)
 pad2 = paleta(pequeno,p2)
