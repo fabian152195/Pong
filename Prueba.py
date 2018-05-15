@@ -59,6 +59,7 @@ class paleta:
     def mover(self):
         self.canvas.move(self.shape, 0, self.y)
         self.set_posicion(0,self.y,0,self.y)
+        Juego.modificar_matriz(Juego, self.get_posicion())
         pos = self.posicion
         if pos[1] < 0:
             self.y = 0
@@ -146,6 +147,7 @@ class Juego:
         for i in range(int(pos[1])//20, int(pos[3])//20):
             for j in range(int(pos[0])//20, int(pos[2])//20):
                 self.matriz[i][j] = 1
+                self.matriz[i-1][j] = 0
 
 def prnt_m(matriz):
     for elemento in matriz:
