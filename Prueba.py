@@ -1,8 +1,10 @@
 import tkinter.messagebox
+import tkinter as tk
 from tkinter import *
 import time
 import random
 from threading import Thread
+from tkinter import ttk
 import threading
 
 HEIGHT=500
@@ -11,8 +13,23 @@ pantalla = Tk()
 pantalla.minsize(WIDTH, HEIGHT)
 pantalla.title("PONG")
 
+class ventana_principal(tk.Tk):
+
+    canva = None
+
+    def __init__(self, *args, **kwargs):  # inicia el objeto
+        tk.Tk.__init__(self, *args, **kwargs)
+
+        self.title('PONG')
+        self.minsize(500, 800)
+        self.resizable(width=NO, height=NO)
+        self.canva = Canvas(self, width = 500, height = 200)
+
+
+
 c = Canvas(pantalla, width=WIDTH, height = HEIGHT, bg = "black")
 c.pack()
+
 
 
 p1 = [0, 20]

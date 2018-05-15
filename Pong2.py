@@ -4,8 +4,8 @@
 # To run properly
 
 # tkinter instead of Tkinter for pyhon3
-from Tkinter import *
-import tkMessageBox  # python 3: tkinter import messagebox
+from tkinter import *
+import tkinter.messagebox  # python 3: tkinter import messagebox
 import random
 import os
 import time
@@ -186,7 +186,7 @@ while 1:
     paddle.draw()
     paddle1.draw()
     if ball.checkwin():
-        tkMessageBox.showinfo('Game End', ball.checkwin() + ' won!!')
+        tkinter.messagebox.showinfo('Game End', ball.checkwin() + ' won!!')
         break
     tk.update_idletasks()
     tk.update()
