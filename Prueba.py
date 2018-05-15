@@ -60,6 +60,7 @@ class paleta:
         self.canvas.move(self.shape, 0, self.y)
         self.set_posicion(0,self.y,0,self.y)
         Juego.modificar_matriz(Juego, self.get_posicion())
+#        Juego.hace_Cero(Juego, self.get_posicion())
         pos = self.posicion
         if pos[1] < 0:
             self.y = 0
@@ -112,7 +113,7 @@ class Bolita:
 
         if self.get_pos()[3] >= HEIGHT or self.get_pos()[1] <= 0:
             self.yspeed = -self.yspeed
-        if self.get_pos()[2] >= WIDTH or self.get_pos()[0] <= 0 :
+        if self.get_pos()[2] >= WIDTH or self.get_pos()[0] <= 0:
             self.xspeed = -self.xspeed
 
 
@@ -144,10 +145,16 @@ class Juego:
             self.nivel += 1
 
     def modificar_matriz(self, pos):
-        for i in range(int(pos[1])//20, int(pos[3])//20):
+        for i in range(int(pos[1])//20, int(pos[3])//20-1):
             for j in range(int(pos[0])//20, int(pos[2])//20):
                 self.matriz[i][j] = 1
-                self.matriz[i-1][j] = 0
+    def hace_Cero(self, pos):
+        for i in range(26):
+            for j in range(41):
+                if i not in range(int(pos[1]) // 20, int(pos[3]) // 20 - 1) and j not in range(int(pos[0]) // 20,
+                                                                                               int(pos[2]) // 20):
+                    self.matriz[i][j] = 0
+
 
 def prnt_m(matriz):
     for elemento in matriz:
