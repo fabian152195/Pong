@@ -101,7 +101,7 @@ class Bolita:
         self.shape = c.create_oval(385, 235, 415, 265, fill = "red")
         self.xspeed = -20
         self.yspeed = 20
-        pos = c.coords(self)
+        self.pos = c.coords(self)
 
     def get_pos(self):
         return c.coords(self.shape)
@@ -111,7 +111,7 @@ class Bolita:
 
         if self.get_pos()[3] >= HEIGHT or self.get_pos()[1] <= 0:
             self.yspeed = -self.yspeed
-        if self.get_pos()[2] >= WIDTH or self.get_pos()[0] <= 0:
+        if self.get_pos()[2] >= WIDTH or self.get_pos()[0] <= 0 :
             self.xspeed = -self.xspeed
 
 
@@ -163,6 +163,8 @@ def mv_up(Juego, clase, objeto):
 pad1 = paleta(c, grande, p1, lado=izquierda)
 pad2 = paleta(c, grande, p2, lado=derecha)
 Juego.modificar_matriz(Juego, pad1.get_posicion())
+Juego.modificar_matriz(Juego, pad2.get_posicion())
+
 
 bola = Bolita()
 
@@ -172,6 +174,7 @@ while True:
     pad1.mover()
     pad2.mover()
     bola.move()
+    prnt_m(Juego.matriz)
     pantalla.update()
     time.sleep(0.05)
 
