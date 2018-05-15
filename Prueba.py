@@ -1,3 +1,4 @@
+
 import tkinter.messagebox
 import tkinter as tk
 from tkinter import *
@@ -13,6 +14,7 @@ pantalla = Tk()
 pantalla.minsize(WIDTH, HEIGHT)
 pantalla.title("PONG")
 
+
 class ventana_principal(tk.Tk):
 
     canva = None
@@ -26,12 +28,12 @@ class ventana_principal(tk.Tk):
         self.canva = Canvas(self, width = 500, height = 200)
 
 
+c = Canvas(pantalla, width=WIDTH, height=HEIGHT, bg="black")
 
-c = Canvas(pantalla, width=WIDTH, height = HEIGHT, bg = "black")
 c.pack()
+#pantalla.update()
 
-
-
+c.create_line(400, 0, 400, 500, fill='white')
 p1 = [0, 20]
 p2 = [780, 800]
 grande = [160, 340]
@@ -51,7 +53,8 @@ pequeno = [220,280]
 #  set_tamano()
 #  set_color()
 #  get_posicion()
-
+izquierda = ["w",'s']
+derecha = ["<Up>", "<Down>"]
 
 class paleta:
     color_paleta = 'white'
@@ -60,10 +63,28 @@ class paleta:
     height = [0,0]
     shape = None
 
-    def __init__(self, height, width):
-        self.shape = c.create_rectangle(width[0], height[0], width[1], height[1], fill='white')
-        self.posicion = c.coords(self.shape)
+    def __init__(self, canvas, height, width, lado):
+        self.canvas = canvas
+        self.shape = canvas.create_rectangle(width[0], height[0], width[1], height[1], fill='white')
+        self.posicion = canvas.coords(self.shape)
+        self.y = 0
+        self.canvas.bind_all(lado[0], self.up)
+        self.canvas.bind_all(lado[1], self.down)
 
+    def up(self, event):
+        self.y = -20
+    def down(self, event):
+        self.y = 20
+    def mover(self):
+        self.canvas.move(self.shape, 0, self.y)
+        self.set_posicion(0,self.y,0,self.y)
+        Juego.modificar_matriz(Juego, self.get_posicion())
+#        Juego.hace_Cero(Juego, self.get_posicion())
+        pos = self.posicion
+        if pos[1] < 0:
+            self.y = 0
+        if pos[3] > 500:
+            self.y = 0
     def set_tamano(self,height):
         self.shape = c.create_rectangle(0, height[0], 20, height[1], fill='white')
 
@@ -71,7 +92,13 @@ class paleta:
         self.shape = c.create_rectangle(self.width[0], self.height[0], self.width[1], self.height[1], fill=str(color))
 
     def get_posicion(self):
-        return self.posicions
+        return self.posicion
+    def set_posicion(self, x1,y1,x2,y2):
+        self.posicion[0]+=x1
+        self.posicion[1]+=y1
+        self.posicion[2]+=x2
+        self.posicion[3]+=y2
+        return self.posicion
 
 class Jugador(paleta):
 
@@ -86,15 +113,6 @@ class Jugador(paleta):
     def get_puntaje(self):
         return self.puntaje
 
-    def mover_paletasUp(self,paleta1:paleta,paleta2:paleta=None):
-        if paleta2==None:
-            c.move(paleta1.shape, 0, -20)
-            paleta1.get_posicion()
-
-    def mover_paletasDown(self,paleta1:paleta,paleta2:paleta=None):
-        if paleta2==None:
-            c.move(paleta1.shape, 0, 20)
-            paleta1.get_posicion()
 
 
 class Bolita:
@@ -102,9 +120,9 @@ class Bolita:
     def __init__(self):
 
         self.shape = c.create_oval(385, 235, 415, 265, fill = "red")
-        self.xspeed = 5
-        self.yspeed = 5
-        pos = c.coords(self)
+        self.xspeed = -20
+        self.yspeed = 20
+        self.pos = c.coords(self)
 
     def get_pos(self):
         return c.coords(self.shape)
@@ -121,8 +139,8 @@ class Bolita:
 
 
 class Juego:
-    #paletas = 1
-    modo = ''
+    paletas = 1
+    modo = 'single'
     puntaje = (0,0)
     nivel = 1
     jugador_izq = None
@@ -146,9 +164,16 @@ class Juego:
             self.nivel += 1
 
     def modificar_matriz(self, pos):
-        for i in range(int(pos[1])//20, int(pos[3])//20):
+        for i in range(int(pos[1])//20, int(pos[3])//20-1):
             for j in range(int(pos[0])//20, int(pos[2])//20):
                 self.matriz[i][j] = 1
+    def hace_Cero(self, pos):
+        for i in range(26):
+            for j in range(41):
+                if i not in range(int(pos[1]) // 20, int(pos[3]) // 20 - 1) and j not in range(int(pos[0]) // 20,
+                                                                                               int(pos[2]) // 20):
+                    self.matriz[i][j] = 0
+
 
 def prnt_m(matriz):
     for elemento in matriz:
@@ -161,35 +186,25 @@ def mv_up(Juego, clase, objeto):
     clase.mover_paletasUp(clase, objeto)
     Juego.modificar_matriz(Juego, objeto.get_posicion())
     prnt_m(Juego.matriz)
+#JuegoPrincipal = Juego()
 
-def hiloDn(Juego, clase, objeto):
-    hilo1 = Thread(target=mv_dn, args=(Juego, clase, objeto))
-    hilo1.run()
+pad1 = paleta(c, grande, p1, lado=izquierda)
+pad2 = paleta(c, grande, p2, lado=derecha)
+Juego.modificar_matriz(Juego, pad1.get_posicion())
+Juego.modificar_matriz(Juego, pad2.get_posicion())
 
-def hiloUp(Juego, clase, objeto):
-    hilo2 = Thread(target=mv_up, args=(Juego, clase, objeto))
-    hilo2.run()
-
-pantalla.bind("s", lambda event: hiloDn(Juego, Jugador, pad1))
-pantalla.bind("S", lambda event: hiloDn(Juego, Jugador, pad1))
-pantalla.bind("e", lambda event: hiloUp(Juego, Jugador, pad1))
-pantalla.bind("E", lambda event: hiloUp(Juego, Jugador, pad1))
-
-pantalla.bind("<Down>", lambda event: hiloDn(Juego, Jugador, pad2))
-pantalla.bind("<Up>", lambda event: hiloUp(Juego, Jugador, pad2))
-
-JuegoPrincipal = Juego()
-
-pad1= paleta(pequeno,p1)
-pad2 = paleta(pequeno,p2)
 
 bola = Bolita()
-Juego.modificar_matriz(Juego, pad1.get_posicion())
+
 prnt_m(Juego.matriz)
+
 while True:
+    pad1.mover()
+    pad2.mover()
     bola.move()
+    prnt_m(Juego.matriz)
     pantalla.update()
-    time.sleep(0.01)
+    time.sleep(0.05)
 
 
 pantalla.mainloop()
