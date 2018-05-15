@@ -188,6 +188,9 @@ def mv_up(Juego, clase, objeto):
     prnt_m(Juego.matriz)
 #JuegoPrincipal = Juego()
 
+
+
+
 pad1 = paleta(c, grande, p1, lado=izquierda)
 pad2 = paleta(c, grande, p2, lado=derecha)
 Juego.modificar_matriz(Juego, pad1.get_posicion())
