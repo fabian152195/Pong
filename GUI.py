@@ -9,7 +9,6 @@ def menuPads(modo):
     inicio.resizable(width=NO, height=NO)
     contenedor_principal = Canvas(inicio, width=800, height=500, bg="gray")
 
-
     # Dibujar lineas en el canvas
     # canvas.create line(Xinicio,Yinicio,Xfinal,Yfinal, fill=ColorLInea,dash=(,)
     # canvas.create_text(150,50,text="Hola BIenvenidos", font = ("Times New Roman","18"),anchor =NW)
@@ -22,8 +21,6 @@ def menuPads(modo):
         ventanaJuego.minsize(800, 500)
         ventanaJuego.resizable(width=NO, height=NO)
         canvaVJuego = Canvas(ventanaJuego, width=800, height=500, bg="gray")
-
-
 
         canvaVJuego.place(x=-3,y=-3)
         ventanaJuego.mainloop()

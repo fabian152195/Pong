@@ -40,6 +40,9 @@ grande = [160, 340]
 mediano = [190, 310]
 pequeno = [220,280]
 
+bolaX= [400,420]
+bolaY= [240,260]
+
 # Clase paleta:
 # Atributos:
 #  color_paleta: string
@@ -118,12 +121,13 @@ class Jugador(paleta):
 
 class Bolita:
 
-    def __init__(self):
-
-        self.shape = c.create_oval(385, 235, 415, 265, fill = "red")
+    def __init__(self, height, width):
+        self.text= c.create_text(0,0,text="Hola BIenvenidos", font = ("Times New Roman","18"),anchor =NW, fill = 'white')
+        self.shape = c.create_rectangle(width[0], height[0], width[1], height[1], fill = "red") #385, 235, 405, 255
         self.xspeed = -20
         self.yspeed = 20
         self.pos = c.coords(self)
+        print('posicion bola: ',self.pos)
 
     def get_pos(self):
         return c.coords(self.shape)
@@ -174,13 +178,15 @@ class Juego:
                 self.matriz[i][j] = 1
         return self.matriz
 
-    def hace_Cero(self, pos):
-        for i in range(26):
-            for j in range(41):
-                if i not in range(int(pos[1]) // 20, int(pos[3]) // 20 - 1) and j not in range(int(pos[0]) // 20,
-                                                                                               int(pos[2]) // 20):
-                    self.matriz[i][j] = 0
-
+    def modificar_matriz2(self, pos,cero):
+        if cero == 20:
+            self.matriz[(int(pos[1]//20))-1][int(pos[0])//20]*=0
+        elif cero == -20:
+            self.matriz[(int(pos[3])//20)][int(pos[0]) // 20]*=0
+        for i in range(int(pos[1])//20, int(pos[3])//20):
+            for j in range(int(pos[0])//20, int(pos[2])//20):
+                self.matriz[i][j] = 1
+        return self.matriz
 
 def prnt_m(matriz):
     print('\n--------')
@@ -206,7 +212,7 @@ pad2 = paleta(c, grande, p2, lado=derecha)
 #Juego.modificar_matriz(Juego, pad2.get_posicion())
 
 
-bola = Bolita()
+bola = Bolita(bolaY,bolaX)
 
 while True:
     pad1.mover()
