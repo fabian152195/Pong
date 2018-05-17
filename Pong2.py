@@ -30,7 +30,6 @@ canvas.create_line(350, 0, 350, 500, fill='white')
 
 # Ball Class
 class Ball:
-    # constructer
     def __init__(self, canvas, paddle1, paddle, color):
         self.canvas = canvas
         self.paddle = paddle
@@ -53,7 +52,6 @@ class Ball:
             winner = 'Player Left'
         if self.p1S == 10:
             winner = 'Player Right'
-
         return winner
 
     # Update Left Paddle Score

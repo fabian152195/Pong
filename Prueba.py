@@ -152,9 +152,11 @@ class Bolita:
         if int(self.get_pos()[0]) // 20 == 0:
             self.xspeed = -self.xspeed
             Juego.set_puntaje2(Juego)
+            Juego.updatep2(Juego,Juego.puntaje2)
         if int(self.get_pos()[2] // 20) == 40:
             self.xspeed = -self.xspeed
             Juego.set_puntaje1(Juego)
+            Juego.updatep1(Juego, Juego.puntaje1)
 
 
 class Juego:
@@ -163,9 +165,12 @@ class Juego:
     puntaje1 = 0
     puntaje2 = 0
     nivel = 1
+
     jugador_izq = None
     jugador_der = None
     Bola = None
+    drawP1 = None
+    drawP2 = None
     matriz = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0],
@@ -225,6 +230,8 @@ class Juego:
         self.modo = modo
         self.paletas = paletas
         self.nivel = nivel
+        self.drawP1 = Canvas()
+        self.drawP2 = Canvas()
 
     def set_nivel(self):
         self.nivel = 1
@@ -260,6 +267,15 @@ class Juego:
     def set_puntaje2(self):
         self.puntaje2 += 1
 
+    def updatep1(self, val):
+        c.delete(self.drawP1)
+        self.drawP1 = c.create_text(170, 50,
+                                             font=('', 40), text=str(val), fill='white')
+    def updatep2(self, val):
+        c.delete(self.drawP2)
+        self.drawP2 = c.create_text(600, 50,
+                                             font=('', 40), text=str(val), fill='white')
+
 def prnt_m(matriz):
     print('\n--------')
     for elemento in matriz:
@@ -269,7 +285,7 @@ def prnt_m(matriz):
 pad1 = paleta(c, grande, p1, lado=izquierda)
 pad2 = paleta(c, grande, p2, lado=derecha)
 
-bola = Bolita(bolaY,bolaX)
+bola = Bolita()
 
 while True:
     print("izquierda" + str(Juego.puntaje1))
