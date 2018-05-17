@@ -221,7 +221,7 @@ while True:
     print('matrizjuego')
     prnt_m(Juego.matriz)
     pantalla.update()
-    time.sleep(0.05)
+    time.sleep(1)
 
 
 pantalla.mainloop()
