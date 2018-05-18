@@ -12,20 +12,16 @@ import threading
 HEIGHT = 500
 WIDTH = 800
 p1 = [0, 20]
-p1a = [80, 100]
-p2 = [780, 800]
-p2a = [740, 720]
-grande_uno = [160, 340]
-mediano_uno = [190, 310]
-pequeno_uno = [220, 280]
 
-grande_dos = [[60,240], [260, 440]]
+p2 = [780, 800]
+grande = [160, 340]
+mediano = [190, 310]
+pequeno = [220, 280]
 bolaX= [400,420]
 bolaY= [240,260]
 izquierda = ["w", 's']
-izquierda1 = ["w", 's']
 derecha = ["<Up>", "<Down>"]
-derecha1 = ["<Up>", "<Down>"]
+
 
 #VARIABLES PARA CLASES
 
@@ -54,6 +50,7 @@ c.create_line(400, 0, 400, 500, fill='white')
 #  set_tamano()
 #  set_color()
 #  get_posicion()
+
 
 
 
@@ -152,13 +149,14 @@ class Bolita:
         print('pos bola: ',self.get_pos())
         if self.get_pos()[3] >= HEIGHT or self.get_pos()[1] <= 0:
             self.yspeed = -self.yspeed
-        if self.juego.matriz[int(self.get_pos()[3] // 20)-1][int(self.get_pos()[0] // 20) - 1] == 1 or \
-                self.juego.matriz[int(self.get_pos()[3] // 20) - 1][int(self.get_pos()[2]) // 20-2] == 1:
-            '''f (paleta.get_posicion(pad1)[1] + paleta.get_tamano(pad1) + 20) <= self.get_pos()[3] and self.get_pos()[3] <= (paleta.get_posicion(pad1)[1] + paleta.get_tamano(pad1) + 80):
-                self.yspeed = 0
-                self.xspeed = -self.xspeed
-            else:'''
+        if self.get_pos()[0] // 20 == 1.0 and self.juego.matriz[int(self.get_pos()[3] // 20) - 1][
+            int(self.get_pos()[0] // 20) - 1] \
+                == 1 or \
+                self.get_pos()[2] // 20 == 39.0 and self.juego.matriz[int(self.get_pos()[3] // 20) - 1][
+            int(self.get_pos()[2]) // 20] \
+                == 1:
             self.xspeed = -self.xspeed
+
         if int(self.get_pos()[0]) // 20 < 0:
             self.canvas.delete(self.shape)
             self.shape = self.canvas.create_rectangle(400, 200, 420, 220, fill="white")
@@ -252,6 +250,7 @@ class Juego:
         self.canvas = canvas
         self.velocidad = 0.05
 
+
     def set_nivel(self):
         self.nivel = 1
         return self.nivel
@@ -269,8 +268,10 @@ class Juego:
             for j in range(int(pos[0]) // 20, int(pos[2]) // 20):
                 self.matriz[i][j] = 1
         return self.matriz
+
     def get_velocidad(self):
         return self.velocidad
+
     def set_puntaje1(self):
         self.puntaje1 += 1
 
@@ -286,7 +287,9 @@ class Juego:
     def updatep2(self, val):
         self.canvas.delete(self.drawP2)
         print('entre al update')
+
         self.drawP2 = self.canvas.create_text(600, 50, font=('', 40), text=str(val), fill='white')
+
 
 def prnt_m(matriz):
     print('\n--------')
@@ -298,28 +301,32 @@ def twopads(tamano):
 
 #INSTANCIAS!!
 
-pad1 = paleta(c, grande_uno, p1, lado = izquierda)
 
-pad2 = paleta(c, grande_uno, p1a, lado = izquierda1)
+#INSTANCIAS!!
 
-pad3 = paleta(c, grande_uno, p2, lado = derecha)
 
-pad4 = paleta(c, grande_uno, p2a, lado = derecha1)
+pad2 = paleta(c, grande, p1, lado = izquierda)
+pad4 = paleta(c, grande, p2, lado = derecha)
+
 
 
 juegoPrincipal= Juego(c)
 
 bola = Bolita(c, juegoPrincipal)
+
+#CICLO
+
+
 tiempo = 0.05
 
 #CICLO
 while True:
     print("izquierda" + str(Juego.puntaje1))
     print("derecha" + str(Juego.puntaje2))
-    pad1.mover()
+
     pad2.mover()
     pad4.mover()
-    pad3.mover()
+
     bola.move()
     print('matrizjuego')
     pantalla.update()
