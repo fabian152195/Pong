@@ -138,6 +138,7 @@ class Bolita:
 
     def move(self):
         self.canvas.move(self.shape, self.xspeed, self.yspeed)
+        self.juego.modificar_matrizbola(self.get_pos(),self.xspeed,self.yspeed)
         print('pos bola: ',self.get_pos())
         if self.get_pos()[3] >= HEIGHT or self.get_pos()[1] <= 0:
             self.yspeed = -self.yspeed
@@ -261,6 +262,43 @@ class Juego:
                 self.matriz[i][j] = 1
         return self.matriz
 
+    def modificar_matrizbola(self, pos, cerox,ceroy):
+        if int(pos[0]) <= 0:
+            i1 = int(pos[3] // 20)
+            j1 = int(pos[2] // 20)
+            self.matriz[i1][j1] = 0
+        elif int(pos[2]) > WIDTH:
+            i2 = int(pos[3] // 20)-2
+            j2 = int(pos[2] // 20)-2
+            print('i2', i2)
+            print('j2', j2)
+            self.matriz[i2][j2] = 0
+        elif cerox == -20 and ceroy == 20:
+            self.matriz[(int(pos[3] // 20)-2)][(int(pos[2]) // 20)] *= 0
+            print('entreee1 pos[3]: ', pos[3])
+            i=int(pos[3]//20)-1
+            j=int(pos[2]//20)-1
+            self.matriz[i][j] = 1
+        elif cerox == -20 and ceroy == -20:
+            self.matriz[(int(pos[3] // 20))][(int(pos[2]) // 20)] *= 0
+            print('entreee2 pos[3]: ', pos[3])
+            i = int(pos[3] // 20) - 1
+            j = int(pos[2] // 20) - 1
+            self.matriz[i][j] = 1
+        elif cerox == 20 and ceroy == -20:
+            self.matriz[(int(pos[3] // 20))][(int(pos[2]) // 20)-2] *= 0
+            print('entreee3 pos[3]: ', pos[3])
+            i = int(pos[3] // 20) - 1
+            j = int(pos[2] // 20) - 1
+            self.matriz[i][j] = 1
+        elif cerox == 20 and ceroy == 20:
+            self.matriz[(int(pos[3] // 20))-2][(int(pos[2]) // 20)-2] *= 0
+            print('entreee4 pos[3]: ', pos[3])
+            i = int(pos[3] // 20) - 1
+            j = int(pos[2] // 20) - 1
+            self.matriz[i][j] = 1
+        return self.matriz
+
     def set_puntaje1(self):
         self.puntaje1 += 1
 
@@ -302,6 +340,7 @@ while True:
     pad1.mover()
     pad2.mover()
     bola.move()
+    prnt_m(juegoPrincipal.matriz)
     print('matrizjuego')
     pantalla.update()
 
