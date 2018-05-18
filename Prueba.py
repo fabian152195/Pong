@@ -7,39 +7,39 @@ from threading import Thread
 from tkinter import ttk
 import threading
 
+#VARIABLES POR UTILIZAR
+
 HEIGHT = 500
 WIDTH = 800
+p1 = [0, 20]
+p1a = [80, 100]
+p2 = [780, 800]
+p2a = [740, 720]
+grande_uno = [160, 340]
+mediano_uno = [190, 310]
+pequeno_uno = [220, 280]
+
+grande_dos = [[60,240], [260, 440]]
+bolaX= [400,420]
+bolaY= [240,260]
+izquierda = ["w", 's']
+izquierda1 = ["w", 's']
+derecha = ["<Up>", "<Down>"]
+derecha1 = ["<Up>", "<Down>"]
+
+#VARIABLES PARA CLASES
+
 pantalla = Tk()
 pantalla.minsize(WIDTH, HEIGHT)
 pantalla.title("PONG")
 
-
-class ventana_principal(tk.Tk):
-    canva = None
-
-    def __init__(self, *args, **kwargs):  # inicia el objeto
-        tk.Tk.__init__(self, *args, **kwargs)
-
-        self.title('PONG')
-        self.minsize(500, 800)
-        self.resizable(width=NO, height=NO)
-        self.canva = Canvas(self, width=500, height=200)
-
-
 c = Canvas(pantalla, width=WIDTH, height=HEIGHT, bg="black")
-
 c.pack()
-# pantalla.update()
 
 c.create_line(400, 0, 400, 500, fill='white')
-p1 = [0, 20]
-p2 = [780, 800]
-grande = [160, 340]
-mediano = [190, 310]
-pequeno = [220, 280]
 
-bolaX= [400,420]
-bolaY= [240,260]
+
+#CLASES
 
 # Clase paleta:
 # Atributos:
@@ -54,11 +54,10 @@ bolaY= [240,260]
 #  set_tamano()
 #  set_color()
 #  get_posicion()
-izquierda = ["w", 's']
-derecha = ["<Up>", "<Down>"]
 
 
-class paleta:
+
+class paleta: #clase que corresponde a las paletas
     color_paleta = 'white'
     posicion = []
     width = [0, 0]
@@ -74,11 +73,16 @@ class paleta:
         print('este', lado[0], lado[1])
         self.canvas.bind_all(lado[0], self.up)
         self.canvas.bind_all(lado[1], self.down)
-
-    def up(self, event):
+    #E: evento (presionar una tecla)
+    #S: cambia el valor de la velocidad del pad, hacia arriba
+    #R: -
+    def up(self, event):  #permite mover el pad hacia arriba
         if int(self.get_posicion()[1]) > 0:
             self.y = -20
 
+    # E: evento (presionar una tecla)
+    # S: cambia el valor de la velocidad del pad, hacia abajo
+    # R: -
     def down(self, event):
         if int(self.get_posicion()[3]) < HEIGHT:
             self.y = 20
@@ -87,7 +91,7 @@ class paleta:
         self.set_posicion(0, self.y, 0, self.y)
         self.canvas.move(self.shape, 0, self.y)
         Juego.modificar_matriz(Juego, self.get_posicion(), self.y)
-        prnt_m(Juego.matriz)
+        #prnt_m(Juego.matriz)
         pos = self.posicion
         if pos[1] <= 0:
             self.y = 0
@@ -96,6 +100,9 @@ class paleta:
 
     def set_tamano(self, height):
         self.shape = c.create_rectangle(0, height[0], 20, height[1], fill='white')
+
+    def get_tamano(self):
+        return self.height[1] - self.height[0]
 
     def set_color(self, color):
         self.shape = c.create_rectangle(self.width[0], self.height[0], self.width[1], self.height[1], fill=str(color))
@@ -126,39 +133,47 @@ class Jugador(paleta):
 
 class Bolita:
 
-    def __init__(self):
+    canvas = Canvas()
 
-        self.shape = c.create_rectangle(400, 200, 420, 220, fill="white")
+    def __init__(self,canvas,juegoClass):
+        self.canvas = canvas
+        self.juego = juegoClass
+        self.shape = canvas.create_rectangle(400, 200, 420, 220, fill="white")
         self.xspeed = -20
         self.yspeed = 20
-        self.pos = c.coords(self)
+        self.pos = canvas.coords(self)
         print('posicion bola: ',self.pos)
 
     def get_pos(self):
-        return c.coords(self.shape)
+        return self.canvas.coords(self.shape)
 
     def move(self):
-        c.move(self.shape, self.xspeed, self.yspeed)
-
+        self.canvas.move(self.shape, self.xspeed, self.yspeed)
+        print('pos bola: ',self.get_pos())
         if self.get_pos()[3] >= HEIGHT or self.get_pos()[1] <= 0:
             self.yspeed = -self.yspeed
-        if self.get_pos()[0] // 20 == 1.0 and Juego.matriz[int(self.get_pos()[1] // 20) - 1][
-            int(self.get_pos()[0]) // 20 - 1] \
-                == 1 or \
-                self.get_pos()[2] // 20 == 39.0 and Juego.matriz[int(self.get_pos()[3] // 20) - 1][
-            int(self.get_pos()[2]) // 20] \
-                == 1:
+        if self.juego.matriz[int(self.get_pos()[3] // 20)-1][int(self.get_pos()[0] // 20) - 1] == 1 or \
+                self.juego.matriz[int(self.get_pos()[3] // 20) - 1][int(self.get_pos()[2]) // 20-2] == 1:
+            '''f (paleta.get_posicion(pad1)[1] + paleta.get_tamano(pad1) + 20) <= self.get_pos()[3] and self.get_pos()[3] <= (paleta.get_posicion(pad1)[1] + paleta.get_tamano(pad1) + 80):
+                self.yspeed = 0
+                self.xspeed = -self.xspeed
+            else:'''
             self.xspeed = -self.xspeed
-        if int(self.get_pos()[0]) // 20 == 0:
-            self.xspeed = -self.xspeed
-            Juego.set_puntaje2(Juego)
-            Juego.updatep2(Juego,Juego.puntaje2)
-        if int(self.get_pos()[2] // 20) == 40:
-            self.xspeed = -self.xspeed
-            Juego.set_puntaje1(Juego)
-            Juego.updatep1(Juego, Juego.puntaje1)
+        if int(self.get_pos()[0]) // 20 < 0:
+            self.canvas.delete(self.shape)
+            self.shape = self.canvas.create_rectangle(400, 200, 420, 220, fill="white")
 
+            self.juego.set_puntaje2()
+            print('entreeeeeeeeeeeeeeee: ', self.juego.puntaje2)
+            self.juego.updatep2(self.juego.puntaje2)
 
+            time.sleep(0.3)
+        if int(self.get_pos()[2] // 20) > 40:
+            self.canvas.delete(self.shape)
+            self.shape=self.canvas.create_rectangle(400, 200, 420, 220, fill="white")
+            self.juego.set_puntaje1()
+            self.juego.updatep1(self.juego.puntaje1)
+            time.sleep(0.3)
 class Juego:
     paletas = 1
     modo = 'single'
@@ -166,11 +181,13 @@ class Juego:
     puntaje2 = 0
     nivel = 1
 
+
     jugador_izq = None
     jugador_der = None
     Bola = None
     drawP1 = None
     drawP2 = None
+    canvas = None
     matriz = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0],
@@ -223,15 +240,17 @@ class Juego:
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
          0, 0, 0]]
 
-    def __init__(self, modo, paletas, nivel, matriz, puntaje1=puntaje1, puntaje2=puntaje2):
+    def __init__(self, canvas, modo=modo, paletas=paletas, nivel=nivel, matriz=matriz, puntaje1=puntaje1, puntaje2=puntaje2 ):
         self.matriz = matriz
         self.Puntaje1 = puntaje1
         self.Puntaje2 = puntaje2
         self.modo = modo
         self.paletas = paletas
         self.nivel = nivel
-        self.drawP1 = Canvas()
-        self.drawP2 = Canvas()
+        self.drawP1 = canvas.create_text(175, 50,font=('', 40), text=str(0), fill='white')
+        self.drawP2 = canvas.create_text(600, 50,font=('', 40), text=str(0), fill='white')
+        self.canvas = canvas
+        self.velocidad = 0.05
 
     def set_nivel(self):
         self.nivel = 1
@@ -250,17 +269,8 @@ class Juego:
             for j in range(int(pos[0]) // 20, int(pos[2]) // 20):
                 self.matriz[i][j] = 1
         return self.matriz
-
-    def modificar_matriz2(self, pos,cero):
-        if cero == 20:
-            self.matriz[(int(pos[1]//20))-1][int(pos[0])//20]*=0
-        elif cero == -20:
-            self.matriz[(int(pos[3])//20)][int(pos[0]) // 20]*=0
-        for i in range(int(pos[1])//20, int(pos[3])//20):
-            for j in range(int(pos[0])//20, int(pos[2])//20):
-                self.matriz[i][j] = 1
-        return self.matriz
-
+    def get_velocidad(self):
+        return self.velocidad
     def set_puntaje1(self):
         self.puntaje1 += 1
 
@@ -268,33 +278,49 @@ class Juego:
         self.puntaje2 += 1
 
     def updatep1(self, val):
-        c.delete(self.drawP1)
-        self.drawP1 = c.create_text(170, 50,
+        print('esto es: ', self.drawP1)
+        self.canvas.delete(self.drawP1)
+
+        self.drawP1 = self.canvas.create_text(170, 50,
                                              font=('', 40), text=str(val), fill='white')
     def updatep2(self, val):
-        c.delete(self.drawP2)
-        self.drawP2 = c.create_text(600, 50,
-                                             font=('', 40), text=str(val), fill='white')
+        self.canvas.delete(self.drawP2)
+        print('entre al update')
+        self.drawP2 = self.canvas.create_text(600, 50, font=('', 40), text=str(val), fill='white')
 
 def prnt_m(matriz):
     print('\n--------')
     for elemento in matriz:
         print(elemento)
+def twopads(tamano):
+    return paleta(c, tamano, p1, lado=izquierda), paleta(c, tamano, p2, lado=derecha)
 
 
-pad1 = paleta(c, grande, p1, lado=izquierda)
-pad2 = paleta(c, grande, p2, lado=derecha)
+#INSTANCIAS!!
 
-bola = Bolita()
+pad1 = paleta(c, grande_uno, p1, lado = izquierda)
 
+pad2 = paleta(c, grande_uno, p1a, lado = izquierda1)
+
+pad3 = paleta(c, grande_uno, p2, lado = derecha)
+
+pad4 = paleta(c, grande_uno, p2a, lado = derecha1)
+
+
+juegoPrincipal= Juego(c)
+
+bola = Bolita(c, juegoPrincipal)
+tiempo = 0.05
+
+#CICLO
 while True:
     print("izquierda" + str(Juego.puntaje1))
     print("derecha" + str(Juego.puntaje2))
     pad1.mover()
     pad2.mover()
+    pad4.mover()
+    pad3.mover()
     bola.move()
     print('matrizjuego')
     pantalla.update()
-
-    time.sleep(0.05)
-
+    time.sleep(Juego.get_velocidad(juegoPrincipal))
